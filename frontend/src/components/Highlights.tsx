@@ -9,7 +9,7 @@ export function Highlights({
 }){
     return (
         <span className="text-sm">
-            <FaCheck/> <b>{title}</b> {desc}
+            <FaCheck className="inline-block"/> <b>{title}</b> {desc}
         </span>
     )
 }
