@@ -1,13 +1,13 @@
 import { Router } from "express";
 import authMiddleware from "../middleware/authMiddleware";
-import { SignupSchema } from "../types";
+import { SigninSchema, SignupSchema } from "../types";
 import { prismaClient } from "../db/client";
 import jwt from "jsonwebtoken";
 import { JWT_PASSWORD } from "../config";
 
 const router = Router();
 
-router.post("/signup", authMiddleware ,async (req,res)=> {
+router.post("/signup",async (req,res)=> {
     const body  = req.body;
     const parsedData = SignupSchema.safeParse(body)
 
@@ -33,7 +33,7 @@ router.post("/signup", authMiddleware ,async (req,res)=> {
         data: {
             email: parsedData.data.username,
             password: parsedData.data.password,
-            name: parsedData.data.name
+            name: parsedData.data.name || ""
         }
     })
 
@@ -45,7 +45,7 @@ router.post("/signup", authMiddleware ,async (req,res)=> {
 
 router.post("/signin" ,async (req,res)=> {
     const body = req.body;
-    const parsedData = SignupSchema.safeParse(body)
+    const parsedData = SigninSchema.safeParse(body)
 
     if(!parsedData.success){
         return res.status(411).json({

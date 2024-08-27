@@ -14,13 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRouter = void 0;
 const express_1 = require("express");
-const authMiddleware_1 = __importDefault(require("../middleware/authMiddleware"));
 const types_1 = require("../types");
 const client_1 = require("../db/client");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../config");
 const router = (0, express_1.Router)();
-router.post("/signup", authMiddleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const body = req.body;
     const parsedData = types_1.SignupSchema.safeParse(body);
@@ -43,16 +42,16 @@ router.post("/signup", authMiddleware_1.default, (req, res) => __awaiter(void 0,
         data: {
             email: parsedData.data.username,
             password: parsedData.data.password,
-            name: parsedData.data.name
+            name: parsedData.data.name || ""
         }
     });
     return res.json({
         message: "please verify your account email"
     });
 }));
-router.post("/signin", authMiddleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
-    const parsedData = types_1.SignupSchema.safeParse(body);
+    const parsedData = types_1.SigninSchema.safeParse(body);
     if (!parsedData.success) {
         return res.status(411).json({
             message: "incorrect input"
@@ -76,7 +75,7 @@ router.post("/signin", authMiddleware_1.default, (req, res) => __awaiter(void 0,
         token: token
     });
 }));
-router.post("/", authMiddleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //@ts-ignore
     const id = req.id;
     const user = client_1.prismaClient.user.findFirst({

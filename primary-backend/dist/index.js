@@ -12,3 +12,4 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/api/v1/user", userRouter_1.userRouter);
 app.use("/api/v1/zap", zapRouter_1.zapRouter);
+app.listen(3001);
