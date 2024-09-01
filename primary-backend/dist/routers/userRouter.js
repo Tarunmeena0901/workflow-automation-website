@@ -78,7 +78,7 @@ router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //@ts-ignore
     const id = req.id;
-    const user = client_1.prismaClient.user.findFirst({
+    const user = yield client_1.prismaClient.user.findFirst({
         where: {
             id: id
         },

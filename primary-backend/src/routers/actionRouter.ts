@@ -1,11 +1,13 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { prismaClient } from "../db/client";
 
 const router = Router();
 
-router.get("/available", (req : Request, res: Response) => {
-    const availableAction = prismaClient.availableAction.findMany({});
-    res.json({availableAction})
-})
+router.get("/available", async (req, res) => {
+    const availableActions = await prismaClient.availableAction.findMany({});
+    res.json({
+        availableActions
+    })
+});
 
 export const actionRouter = router;

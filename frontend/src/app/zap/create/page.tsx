@@ -14,10 +14,15 @@ function useAvailableActionsAndTriggers() {
 
     useEffect(() => {
         axios.get(`${BACKEND_URL}/api/v1/trigger/available`)
-            .then(x => setAvailableTriggers(x.data.availableTriggers))
+            .then(x => {
+                setAvailableTriggers(x.data.availableTriggers)
+            })
 
         axios.get(`${BACKEND_URL}/api/v1/action/available`)
-            .then(x => setAvailableActions(x.data.availableActions))
+            .then(x => {
+                console.log(x.data)
+                setAvailableActions(x.data.availableActions)
+            })
     }, [])
 
     return {

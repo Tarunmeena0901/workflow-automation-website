@@ -23,7 +23,7 @@ async function main() {
             topic: TOPIC,
             messages: producerData.map((r) => {
                 return {
-                    value: r.zapRunId
+                    value: JSON.stringify({zapRunId: r.zapRunId, stage: 0})
                 }
             })
         })

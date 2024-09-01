@@ -80,7 +80,7 @@ router.post("/" ,async (req,res)=> {
     //@ts-ignore
     const id = req.id;
 
-    const user = prismaClient.user.findFirst({
+    const user = await prismaClient.user.findFirst({
         where: {
             id: id
         },
